@@ -1,5 +1,5 @@
--- [[ InfHub | Universal Script ]] --
-local Rayfield = loadstring(game:HttpGet("https://sirius.menu"))()
+-- [[ InfHubNOWEYS | UNIVERSAL HUB ]] --
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu'))()
 
 local Window = Rayfield:CreateWindow({
    Name = "🚀 InfHub | Universal Hack",
@@ -57,14 +57,7 @@ TabMain:CreateToggle({
 
 -- ABA COMBATE (FLING)
 TabCombat:CreateButton({
-   Name = "Fling All (Gira e Arremessa Todos)",
-   Callback = function()
-       loadstring(game:HttpGet("https://raw.githubusercontent.com"))()
-   end,
-})
-
-TabCombat:CreateButton({
-   Name = "Abrir Fling GUI",
+   Name = "Fling All (Arremessar Todos)",
    Callback = function()
        loadstring(game:HttpGet("https://raw.githubusercontent.com"))()
    end,
@@ -81,24 +74,19 @@ TabProtections:CreateButton({
            if getnamecallmethod() == "Kick" or getnamecallmethod() == "kick" then return nil end
            return old(self, ...)
        end)
-       Rayfield:Notify({Title = "Proteção", Content = "Ultra Anti-Kick Ativado!", Duration = 5})
+       Rayfield:Notify({Title = "Proteção", Content = "Anti-Kick Ativado!", Duration = 5})
    end,
 })
 
-TabProtections:CreateToggle({
-   Name = "Anti-Fling / Anti-Bang",
-   CurrentValue = false,
-   Callback = function(v) _G.AntiFling = v end
-})
-
--- ABA VISUAIS
+-- ABA VISUAIS (COOLKID)
 TabVisuals:CreateButton({
-   Name = "Virar c00lkid (Visual Local)",
+   Name = "Virar c00lkid (Visual)",
    Callback = function()
        local char = game.Players.LocalPlayer.Character
        for _, v in pairs(char:GetChildren()) do if v:IsA("Accessory") then v:Destroy() end end
        char["Body Colors"].TorsoColor3 = Color3.new(0, 0, 0)
        char["Body Colors"].HeadColor3 = Color3.new(1, 1, 1)
+       Rayfield:Notify({Title = "Visual", Content = "Skin c00lkid aplicada!", Duration = 3})
    end,
 })
 
@@ -109,7 +97,7 @@ TabVisuals:CreateInput({
        local target = game.Players:FindFirstChild(Text)
        if target then
            game.Players.LocalPlayer.CharacterAppearanceId = target.UserId
-           Rayfield:Notify({Title = "Sucesso", Content = "Skin copiada! Dê Reset para aplicar.", Duration = 5})
+           Rayfield:Notify({Title = "Sucesso", Content = "Skin copiada! Reinicie para aplicar.", Duration = 5})
        end
    end,
 })
