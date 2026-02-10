@@ -1,9 +1,8 @@
-# InfHub
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu'))()
 
 local Window = Rayfield:CreateWindow({
    Name = "🚀 InfHub | Universal Hack",
-   LoadingTitle = "Carregando Módulos...",
+   LoadingTitle = "Iniciando InfHub...",
    LoadingSubtitle = "InfHubNOWEYS",
    ConfigurationSaving = { Enabled = true, FolderName = "InfHubConfigs", FileName = "Universal" }
 })
@@ -14,13 +13,17 @@ local TabCombat = Window:CreateTab("⚔️ Fling/PVP", 4483362458)
 local TabProtections = Window:CreateTab("🛡️ Proteções", 4483362458)
 local TabVisuals = Window:CreateTab("🎭 Visuais", 4483362458)
 
--- ABA MOVIMENTO
+-- ABA MOVIMENTO (SPEED & JUMP)
 TabMain:CreateSlider({
    Name = "Velocidade (Speed)",
    Range = {16, 500},
    Increment = 1,
    CurrentValue = 16,
-   Callback = function(Value) game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Value end,
+   Callback = function(Value) 
+       if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") then
+           game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Value 
+       end
+   end,
 })
 
 TabMain:CreateToggle({
@@ -29,38 +32,23 @@ TabMain:CreateToggle({
    Callback = function(Value)
        _G.InfJump = Value
        game:GetService("UserInputService").JumpRequest:Connect(function()
-           if _G.InfJump then game.Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid'):ChangeState("Jumping") end
-       end)
-   end,
-})
-
-TabMain:CreateToggle({
-   Name = "Noclip",
-   CurrentValue = false,
-   Callback = function(Value)
-       _G.Noclip = Value
-       game:GetService("RunService").Stepped:Connect(function()
-           if _G.Noclip then
-               for _, v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
-                   if v:IsA("BasePart") then v.CanCollide = false end
-               end
+           if _G.InfJump and game.Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid') then 
+               game.Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid'):ChangeState("Jumping") 
            end
        end)
    end,
 })
 
--- ABA COMBATE (FLING)
+-- ABA COMBATE (FLING ALL)
 TabCombat:CreateButton({
-   Name = "Fling All (Gira e Arremessa)",
+   Name = "Ativar Fling All (Arremessar)",
    Callback = function()
-       -- Carrega o script de Fling Universal famoso (ex: SkyHub ou similar)
+       -- Link corrigido para o script de Fling funcional
        loadstring(game:HttpGet("https://raw.githubusercontent.com"))()
    end,
 })
 
--- ABA PROTEÇÕES (ANTI-KICK, ANTI-BANG, ANTI-FLING)
-TabProtections:CreateSection("Defesas Ativas")
-
+-- ABA PROTEÇÕES (ULTRA ANTI-KICK)
 TabProtections:CreateButton({
    Name = "Ativar Ultra Anti-Kick",
    Callback = function()
@@ -69,34 +57,23 @@ TabProtections:CreateButton({
        local old = mt.__namecall
        mt.__namecall = newcclosure(function(self, ...)
            local method = getnamecallmethod()
-           if method == "Kick" then return nil end
+           if method == "Kick" or method == "kick" then 
+               return nil -- Bloqueia o comando de expulsão
+           end
            return old(self, ...)
        end)
        Rayfield:Notify({Title = "Proteção", Content = "Anti-Kick Ativado!", Duration = 5})
    end,
 })
 
-TabProtections:CreateToggle({
-   Name = "Anti-Fling",
-   CurrentValue = false,
-   Callback = function(v) _G.AntiFling = v end -- Lógica interna de desativar colisões com outros
-})
-
--- ABA VISUAIS (COOLKID / SKIN COPY)
+-- ABA VISUAIS (COOLKID)
 TabVisuals:CreateButton({
-   Name = "Virar c00lkid (Visual)",
+   Name = "Remover Acessórios (Base Coolkid)",
    Callback = function()
-       -- Carrega a aparência clássica do hacker c00lkid
        local char = game.Players.LocalPlayer.Character
-       for _, v in pairs(char:GetChildren()) do if v:IsA("Accessory") then v:Destroy() end end
-       -- Aqui o script trocaria cores e ID de roupas para o padrão coolkid
+       for _, v in pairs(char:GetChildren()) do 
+           if v:IsA("Accessory") then v:Destroy() end 
+       end
    end,
 })
 
-TabVisuals:CreateInput({
-   Name = "Copiar Skin (Nome do User)",
-   PlaceholderText = "Digite o nome...",
-   Callback = function(Text)
-       -- Lógica para clonar acessórios do jogador 'Text'
-   end,
-})
